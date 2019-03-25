@@ -7,6 +7,8 @@ CREATE TABLE IF NOT EXISTS endereco_cliente (
   cpf VARCHAR(11) NOT NULL,
   cep VARCHAR(8) NOT NULL,
   logradouro VARCHAR(100) NOT NULL,
+  complemento VARCHAR(100) NOT NULL, 
+  numero VARCHAR(50) NOT NULL,
   bairro VARCHAR(100) NOT NULL,
   cidade VARCHAR(100) NOT NULL,
   uf VARCHAR(2) NOT NULL, 
