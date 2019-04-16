@@ -12,25 +12,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cadastroclientes.model.Cliente;
-import br.com.cadastroclientes.model.Endereco;
-import br.com.cadastroclientes.model.Telefone;
 import br.com.cadastroclientes.service.ClienteService;
 
 @RestController
-@RequestMapping(value = "/v1/cliente")
+@RequestMapping(value = "/v1/cliente", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
 	
-	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Cliente> cadastrar(@RequestBody Cliente cliente){
 		clienteService.salvar(cliente);
 		return new ResponseEntity<Cliente>(cliente, HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Cliente>> listar(){
-		return new ResponseEntity<List<Cliente>>(clienteService.listar(), HttpStatus.OK);
+	public List<Cliente> listar(){
+		return clienteService.listar();
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
