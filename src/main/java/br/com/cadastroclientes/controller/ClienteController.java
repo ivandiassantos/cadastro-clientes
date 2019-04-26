@@ -1,11 +1,13 @@
 package br.com.cadastroclientes.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +31,15 @@ public class ClienteController {
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Cliente> listar(){
 		return clienteService.listar();
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, path = "{cpf}")
+	public ResponseEntity<Cliente> obterPor(@PathVariable String cpf){
+		Optional<Cliente> cliente = clienteService.obterPor(cpf);
+		if(cliente.isPresent()) {			
+			return ResponseEntity.ok(cliente.get());
+		}
+		return new ResponseEntity<Cliente>(HttpStatus.NOT_FOUND);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
